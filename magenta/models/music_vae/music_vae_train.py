@@ -50,10 +50,10 @@ flags.DEFINE_integer(
     'Number of batches to use during evaluation or `None` for all batches '
     'in the data source.')
 flags.DEFINE_integer(
-    'checkpoints_to_keep', 100,
+    'checkpoints_to_keep', 10, #100
     'Maximum number of checkpoints to keep in `train` mode or 0 for infinite.')
 flags.DEFINE_integer(
-    'keep_checkpoint_every_n_hours', 1,
+    'keep_checkpoint_every_n_hours', 12, #1
     'In addition to checkpoints_to_keep, keep a checkpoint every N hours.')
 flags.DEFINE_string(
     'mode', 'train',
