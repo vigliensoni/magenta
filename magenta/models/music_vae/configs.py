@@ -240,6 +240,65 @@ CONFIG_MAP['nade-drums_2bar_full'] = Config(
     eval_examples_path=None,
 )
 
+# 4bar Drums w-triplet grid
+CONFIG_MAP['nade-drums_4bar_triplets_reduced'] = Config(
+    model=MusicVAE(lstm_models.BidirectionalLstmEncoder(),
+                   lstm_models.MultiLabelRnnNadeDecoder()),
+    hparams=merge_hparams(
+        lstm_models.get_default_hparams(),
+        HParams(
+            batch_size=512,
+            max_seq_len=96,  # 4 bars w/ 24 steps per bar
+            z_size=256,
+            enc_rnn_size=[1024],
+            dec_rnn_size=[512, 512],
+            nade_num_hidden=128,
+            free_bits=48,
+            max_beta=0.2,
+            sampling_schedule='inverse_sigmoid',
+            sampling_rate=1000,
+        )),
+    note_sequence_augmenter=None,
+    data_converter=data.DrumsConverter(
+        max_bars=100,  # Truncate long drum sequences before slicing.
+        slice_bars=4,
+        steps_per_quarter=6,     # steps_per_quarter: The number of quantization steps per quarter note.
+        roll_input=True,
+        roll_output=True),
+    train_examples_path=None,
+    eval_examples_path=None,
+)
+
+# 4bar Drums w-triplet grid
+CONFIG_MAP['nade-drums_4bar_triplets_finest_grid_reduced'] = Config(
+    model=MusicVAE(lstm_models.BidirectionalLstmEncoder(),
+                   lstm_models.MultiLabelRnnNadeDecoder()),
+    hparams=merge_hparams(
+        lstm_models.get_default_hparams(),
+        HParams(
+            batch_size=512,
+            max_seq_len=96,  # 4 bars w/ 24 steps per bar
+            z_size=256,
+            enc_rnn_size=[1024],
+            dec_rnn_size=[512, 512],
+            nade_num_hidden=128,
+            free_bits=48,
+            max_beta=0.2,
+            sampling_schedule='inverse_sigmoid',
+            sampling_rate=1000,
+        )),
+    note_sequence_augmenter=None,
+    data_converter=data.DrumsConverter(
+        max_bars=100,  # Truncate long drum sequences before slicing.
+        slice_bars=4,
+        steps_per_quarter=6,     # steps_per_quarter: The number of quantization steps per quarter note.
+        roll_input=True,
+        roll_output=True),
+    train_examples_path=None,
+    eval_examples_path=None,
+)
+
+
 # Trio Models
 trio_16bar_converter = data.TrioConverter(
     steps_per_quarter=4,
