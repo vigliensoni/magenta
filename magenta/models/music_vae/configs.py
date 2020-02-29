@@ -277,7 +277,7 @@ CONFIG_MAP['nade-drums_4bar_triplets_finest_grid_reduced'] = Config(
         lstm_models.get_default_hparams(),
         HParams(
             batch_size=512,
-            max_seq_len=384,  # 4 bars w/ 24 steps per bar
+            max_seq_len=192,  # 4 bars w/ 24 steps per bar
             z_size=256,
             enc_rnn_size=[1024],
             dec_rnn_size=[512, 512],
@@ -291,7 +291,7 @@ CONFIG_MAP['nade-drums_4bar_triplets_finest_grid_reduced'] = Config(
     data_converter=data.DrumsConverter(
         max_bars=100,  # Truncate long drum sequences before slicing.
         slice_bars=4,
-        steps_per_quarter=24,     # steps_per_quarter: The number of quantization steps per quarter note.
+        steps_per_quarter=12,     # steps_per_quarter: The number of quantization steps per quarter note.
         roll_input=True,
         roll_output=True),
     train_examples_path=None,
